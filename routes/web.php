@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DashboardController;
 
@@ -16,8 +17,12 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', [WelcomeController::class, 'index']);
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/leads/create', [LeadController::class, 'create'])->name('leads.create');
+});
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

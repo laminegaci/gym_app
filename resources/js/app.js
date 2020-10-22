@@ -22,3 +22,7 @@ if (el)
 
 }
 
+import { InertiaProgress } from '@inertiajs/progress'
+
+InertiaProgress.init()
+
